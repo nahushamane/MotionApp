@@ -16,12 +16,14 @@ import androidx.core.content.res.ResourcesCompat
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.time.format.TextStyle
+import java.util.*
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var activityImageView: ImageView;
     private lateinit var activityTypeView: TextView;
-    private lateinit var motivationalQuoteView: TextView;
     private lateinit var analyticsButton: ImageButton;
     private lateinit var mapButton: ImageButton;
 
@@ -158,7 +160,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             addDataInDatabase();
         }
         activityMap["startTime"] = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
-        activityMap["date"] = LocalDateTime.now().format(DateTimeFormatter.ofPattern("DD/MM/YY"));
+        activityMap["date"] = LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT));
         activityMap["activityType"] = activityType;
         activityMap["datetimeObject"] = LocalDateTime.now();
     }
