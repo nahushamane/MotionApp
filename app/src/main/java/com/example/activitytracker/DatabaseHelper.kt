@@ -35,10 +35,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
-    fun addDataInDatabase(activityType: String, date: String, time: String, duration: Int): Long {
+    fun addDataInDatabase(activity: String, date: String, time: String, duration: Int): Long {
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(COLUMN_ACTIVITY_TYPE, activityType)
+        values.put(COLUMN_ACTIVITY_TYPE, activity)
         values.put(COLUMN_ACTIVITY_DATE, date)
         values.put(COLUMN_ACTIVITY_TIME, time)
         values.put(COLUMN_ACTIVITY_DURATION, duration)
@@ -50,6 +50,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     fun getDataCursor(): Cursor{
         val cursor = this.readableDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        return cursor;
+    }
+
+    fun clearTable(): Cursor {
+        val cursor = this.writableDatabase.rawQuery("DELETE FROM " + TABLE_NAME, null);
         return cursor;
     }
 }

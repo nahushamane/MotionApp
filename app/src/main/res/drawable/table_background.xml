@@ -2,13 +2,13 @@
     android:shape="rectangle">
 
     <stroke
-        android:width="2dp"
+        android:width="4dp"
         android:color="@color/black" />
 
     <solid
         android:color="@color/white" />
 
     <corners
-        android:radius="8dp" />
+        android:radius="0dp" />
 
 </shape>

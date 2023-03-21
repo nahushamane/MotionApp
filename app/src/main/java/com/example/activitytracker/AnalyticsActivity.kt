@@ -1,9 +1,11 @@
 package com.example.activitytracker
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.database.Cursor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -11,13 +13,28 @@ import android.widget.TextView
 class AnalyticsActivity : AppCompatActivity() {
     private lateinit var table: TableLayout;
     private lateinit var db: DatabaseHelper;
+    private lateinit var bt_back: Button;
+    private lateinit var bt_clear: Button;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_analytics)
 
         table = findViewById(R.id.tableLayout);
-
         db = DatabaseHelper(this);
+        bt_back = findViewById(R.id.bt_back)
+        bt_clear = findViewById(R.id.bt_clear)
+
+        bt_back.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java));
+            finish()
+        }
+
+        bt_clear.setOnClickListener {
+            fillTable(db.clearTable());
+            startActivity(Intent(this, MainActivity::class.java));
+            finish()
+        }
 
         fillTable(db.getDataCursor());
     }

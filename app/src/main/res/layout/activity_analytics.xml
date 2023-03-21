@@ -1,119 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
 
     tools:context=".AnalyticsActivity">
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
+    <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:scrollbars="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/analyticsBackButton"
+        android:layout_margin="20dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/table_background"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TableRow
+            android:background="@color/white"
+            android:gravity="center">
 
-        <TableLayout
-            android:id="@+id/tableLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/table_background"
-            android:padding="16dp">
+            <TextView
+                android:id="@+id/col1"
+                android:padding="10dp"
+                android:text="Activity"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-            <!-- Table header row -->
-            <TableRow android:background="@color/teal_200">
+            <TextView
+                android:id="@+id/col2"
+                android:padding="10dp"
+                android:text="Date"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/col1"
-                    android:padding="16dp"
-                    android:text="Activity Type"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/col3"
+                android:padding="10dp"
+                android:text="Time"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/col2"
-                    android:padding="16dp"
-                    android:text="Day"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/col4"
+                android:padding="10dp"
+                android:text="Duration"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/col3"
-                    android:padding="16dp"
-                    android:text="Time"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+        <TableRow
+            android:gravity="center">
 
-                <TextView
-                    android:id="@+id/col4"
-                    android:padding="16dp"
-                    android:text="Duration"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </TableRow>
+            <TextView
+                android:id="@+id/row1col1"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-            <!-- Table rows for data -->
-            <TableRow>
+            <TextView
+                android:id="@+id/row1col2"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/row1col1"
-                    android:padding="16dp"
-                    android:text="Row  1"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/row1col3"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/row1col2"
-                    android:padding="16dp"
-                    android:text="Row 1 Column 2"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/row1col4"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </TableRow>
 
-                <TextView
-                    android:id="@+id/row1col3"
-                    android:padding="16dp"
-                    android:text="Row 1 Column 3"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/row1col4"
-                    android:padding="16dp"
-                    android:text="Row 1 Column 4"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </TableRow>
-
-            <!-- Add more table rows for each data item in SQLite database -->
-
-        </TableLayout>
-
-    </HorizontalScrollView>
+    </TableLayout>
 
     <Button
-        android:id="@+id/analyticsBackButton"
+        android:id="@+id/bt_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@color/black"
+        android:text="Back"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontalScrollView" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bt_clear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@color/black"
+        android:text="Clear"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bt_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
         activityImageView = findViewById(R.id.activityImage);
         activityTypeView = findViewById(R.id.activityType)
-        motivationalQuoteView = findViewById(R.id.motivationQuote)
 
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
@@ -104,7 +103,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         var size = pastValues.size;
 
         if(size == 200){
-            // remove the first element of the list
             var ele = pastValues[0];
 
             currAvg = (currAvg * pastValues.size - ele + avg)/ pastValues.size
@@ -120,43 +118,35 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     fun updateActivityImage(activityType:String){
-        var quote: String = when (activityType) {
-            "standing" -> ""
-            "walking" -> "Take the first step towards running and leave your doubts behind!"
-            "running" -> "Every step you take brings you closer to your goal."
-            else -> "Drive safe, arrive happy."
-        }
-        motivationalQuoteView.text = quote;
-    }
-
-    fun updateMotivationQuote(activityType:String){
         var imageId: Int = when (activityType) {
-            "standing" -> R.drawable.still_person
-            "walking" -> R.drawable.walking_person
-            "running" -> R.drawable.running_person
-            else -> R.drawable.driving_person
+            "standing" -> R.drawable.baseline_man_200
+            "walking" -> R.drawable.baseline_directions_walk_200
+            "running" -> R.drawable.baseline_directions_run_200
+            else -> R.drawable.baseline_drive_eta_200
         }
         activityImageView.setImageResource(imageId)
     }
 
     fun addDataInDatabase(){
+
         val dbHelper = DatabaseHelper(this);
         val durationSeconds: Int = Duration.between( activityMap["datetimeObject"] as LocalDateTime, LocalDateTime.now()).toMillis().toInt() / 1000
-        if(durationSeconds <= 3)    return;
+
+        if(durationSeconds <= 3)
+            return;
 
         val durationMinutes: Int =  durationSeconds / 60 ;
+
         dbHelper.addDataInDatabase(activityMap["activityType"] as String,
             activityMap["date"] as String,
             activityMap["startTime"] as String,
             durationMinutes);
 
-        // make toast
         if(activityMap["activityType"] != "standing"){
-
             var toast: String = "You have "
             if(activityMap["activityType"] == "walking")    toast += "walked "
-            else if(activityMap["activityType"] == "running") toast += "ran "
-            else toast += "drove a vehicle "
+            else if(activityMap["activityType"] == "running") toast += "run "
+            else toast += "driven "
             toast += "for ${convertDurationInReadableFormat(durationSeconds)}"
             showToast(toast)
         }
@@ -168,7 +158,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             addDataInDatabase();
         }
         activityMap["startTime"] = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
-        activityMap["date"] = LocalDateTime.now().format(DateTimeFormatter.ofPattern("DD/MM/YYYY"));
+        activityMap["date"] = LocalDateTime.now().format(DateTimeFormatter.ofPattern("DD/MM/YY"));
         activityMap["activityType"] = activityType;
         activityMap["datetimeObject"] = LocalDateTime.now();
     }
@@ -197,7 +187,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 pastActivity = "standing";
                 activityTypeView.text = "You are Stationary";
                 updateActivityImage("standing");
-                updateMotivationQuote("standing");
             } else if (currAvg > 1.5f && currAvg < 3f) {
                 if(pastActivity == "running"){
                     stopAudio();
@@ -209,7 +198,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 pastActivity = "walking";
                 activityTypeView.text = "You are Walking";
                 updateActivityImage("walking");
-                updateMotivationQuote("walking");
 
             } else if(currAvg > 1.5f && currAvg < 10f) {
                 if(pastActivity != "running"){
@@ -222,7 +210,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 pastActivity = "running"
                 activityTypeView.text = "You are Running";
                 updateActivityImage("running");
-                updateMotivationQuote("standing");
 
             }else{
                 if(pastActivity != "running"){
@@ -235,7 +222,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 pastActivity = "driving"
                 activityTypeView.text = "You are Driving";
                 updateActivityImage("driving");
-                updateMotivationQuote("driving");
 
             }
         }
